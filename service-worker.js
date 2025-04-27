@@ -19,16 +19,19 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  const currentCaches = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
+          if (!currentCaches.includes(cacheName)) {
             console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      return self.clients.claim(); // Take control of clients as soon as the worker is activated
     })
   );
 });
@@ -40,4 +43,25 @@ self.addEventListener('fetch', (event) => {
         return response || fetch(event.request);
       })
   );
+});
+
+// Listen for messages from the client to skip waiting
+self.addEventListener('message', (event) => {
+  if (event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
+
+// Notify clients about the update
+self.addEventListener('install', (event) => {
+  self.skipWaiting(); // Force the waiting service worker to become active
+});
+
+// Post a message to the client when there's a new version
+self.addEventListener('updatefound', (event) => {
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      client.postMessage({ action: 'newVersionAvailable' });
+    });
+  });
 });

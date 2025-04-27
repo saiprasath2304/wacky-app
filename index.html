@@ -208,6 +208,9 @@
 </div>
 
 <button onclick="generatePNG()" id="generatePNG">Generate PNG</button>
+<div id="updateNotification" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background-color:#4CAF50; color:white; padding:10px 20px; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.2); z-index:1000; cursor:pointer;">
+  New update available! Tap to refresh.
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script>
@@ -401,23 +404,26 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
     .then((registration) => {
-        registration.onupdatefound = () => {
+      registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
-            if (installingWorker.state === 'installed') {
+          if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-                // New update available
-                alert('New version available! Refresh to update.');
+              // New update available
+              const updateNotification = document.getElementById('updateNotification');
+              updateNotification.style.display = 'block';
+              updateNotification.onclick = () => {
                 window.location.reload();
+              };
             }
-            }
+          }
         };
-        };
+      };
     })
     .catch((error) => {
-        console.log('Service Worker registration failed:', error);
+      console.log('Service Worker registration failed:', error);
     });
-}
+  }
 </script>
 
 </body>

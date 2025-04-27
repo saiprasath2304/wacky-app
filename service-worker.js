@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wacky-cache-v4'; // <-- Change the version when you update
+const CACHE_NAME = 'wacky-cache-v5'; // <-- Change the version when you update
 const urlsToCache = [
   './index.html',
   './manifest.json',

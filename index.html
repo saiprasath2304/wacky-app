@@ -141,7 +141,7 @@
 <div id="playerForm" style="display: none;">
     <label for="playerList">Select Player(s):</label>
     <select id="playerList" multiple>
-	<option value="Abdul">Abdul</option>
+	<!-- <option value="Abdul">Abdul</option> -->
 	<option value="Amin">Amin</option>
 	<option value="Anand">Anand</option>
 	<option value="Andu Senthil">Andu Senthil</option>
@@ -401,12 +401,23 @@
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
     .then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
+        registration.onupdatefound = () => {
+        const installingWorker = registration.installing;
+        installingWorker.onstatechange = () => {
+            if (installingWorker.state === 'installed') {
+            if (navigator.serviceWorker.controller) {
+                // New update available
+                alert('New version available! Refresh to update.');
+                window.location.reload();
+            }
+            }
+        };
+        };
     })
     .catch((error) => {
-      console.log('Service Worker registration failed:', error);
+        console.log('Service Worker registration failed:', error);
     });
-  }
+}
 </script>
 
 </body>

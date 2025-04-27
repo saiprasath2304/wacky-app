@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Wacky Team Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #addPlayer {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #addPlayer:hover {
+            background-color: #45a049;
+        }
+
+        #playerForm {
+            display: none;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin-bottom: 15px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #007b9b;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #generateTeam {
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #generateTeam:hover {
+            background-color: #e64a19;
+        }
+
+        #seriesButtons {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #seriesButtons button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #seriesButtons button:hover {
+            background-color: #333;
+        }
+	
+	#generatePNG {
+            display: none;
+	}
+    </style>
+</head>
+<body>
+<h1>Wacky Cricket Club 🏏</h1>
+<span id="add">Add a new player</span><button onclick="addPlayer()" id="addPlayer">Add Player</button>
+
+<div id="playerForm" style="display: none;">
+    <label for="playerList">Select Player(s):</label>
+    <select id="playerList" multiple>
+	<option value="Abdul">Abdul</option>
+	<option value="Amin">Amin</option>
+	<option value="Anand">Anand</option>
+	<option value="Andu Senthil">Andu Senthil</option>
+	<option value="Arun">Arun</option>
+	<option value="Ashok">Ashok</option>
+    <option value="Babu.R">Babu.R</option>
+    <option value="Babu.V">Babu.V</option>
+    <option value="Balaji">Balaji</option>
+    <option value="Chandru">Chandru</option>
+    <option value="Egha">Egha</option>
+    <option value="Ganesh">Ganesh</option>
+    <option value="Guru">Guru</option>
+    <option value="Hari">Hari</option>
+    <option value="Jebin">Jebin</option>
+    <option value="Kannan">Kannan</option>
+    <option value="Karthikeyan">Karthikeyan</option>
+    <option value="Karthi Lara">Karthi Lara</option>
+    <option value="Kathir">kathir</option>
+	<option value="Naveen">Naveen</option>
+    <option value="Mani">Mani</option>
+    <option value="Mohan">Mohan</option>
+    <option value="Naveen Jr.">Naveen Jr.</option>
+    <option value="Mahesh">Mahesh</option>
+    <option value="Prabha">Prabha</option>
+    <option value="Prakash">Prakash</option>
+    <option value="Prasanna">Prasanna</option>
+    <option value="Praveen">Praveen</option>
+    <option value="Raghul">Raghul</option>
+    <option value="Raja">Raja</option>
+    <option value="Rajasekhar">Rajasekhar</option>
+	<option value="Rajesh">Rajesh</option>
+    <option value="Rajavarman">Rajavarman</option>
+    <option value="Rithik">Rithik</option>
+    <option value="Ramgopal">Ramgopal</option>
+    <option value="Ramachandran">Ramachandran</option>
+    <option value="Saikannan">Saikannan</option>
+    <option value="Saiprasath">Saiprasath</option>
+    <option value="Sanjay">Sanjay</option>
+    <option value="Saravanan">Saravanan</option>
+    <option value="Sathyamurthi">Sathyamurthi</option>
+    <option value="Selvam">Selvam</option>
+    <option value="Selvaraj">Selvaraj</option>
+    <option value="Senthil">Senthil</option>
+    <option value="Sureshkumar">Sureshkumar</option>
+	<option value="Tamil">Tamil</option>
+    <option value="Thyagu">Thyagu</option>
+        <!-- Add more players here -->
+    </select>
+    <button onclick="submitPlayer()">Submit</button>
+</div>
+
+<table id="playerTable">
+    <tr>
+        <th>Serial No</th>
+        <th>Player Name</th>
+    </tr>
+</table>
+
+<button onclick="showSeriesButtons()" id="generateTeam">Generate Team</button>
+
+<div id="seriesButtons" style="display: none;">
+    <button onclick="generateTeam('Tri')">Tri Series</button>
+    <button onclick="generateTeam('Bi')">Bi Series</button>
+</div>
+
+<button onclick="generatePNG()" id="generatePNG">Generate PNG</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script>
+    let serialNumber = 1;
+    let players = [];
+
+    function addPlayer() {
+        document.getElementById('playerForm').style.display = 'block';
+    }
+
+    function submitPlayer() {
+        const selectedPlayers = Array.from(document.getElementById('playerList').selectedOptions).map(option => option.value);
+
+        if (selectedPlayers.length > 0) {
+            selectedPlayers.forEach(selectedPlayer => {
+                players.push(selectedPlayer);
+
+                const table = document.getElementById('playerTable');
+                const row = table.insertRow(-1);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+
+                cell1.innerHTML = serialNumber++;
+                cell2.innerHTML = selectedPlayer;
+            });
+
+            // Clear the selection
+            Array.from(document.getElementById('playerList').options).forEach(option => option.selected = false);
+
+            // Hide the playerForm div
+            document.getElementById('playerForm').style.display = 'none';
+        } else {
+            alert('Please select at least one player.');
+        }
+    }
+
+    function showSeriesButtons() {
+        document.getElementById('seriesButtons').style.display = 'block';
+    }
+
+    function generateTeam(seriesType) {
+        players = shuffleArray(players);
+        const table = document.getElementById('playerTable');
+        table.style.display="none";
+        console.log(players)
+        var body = document.body;
+        var headers = ["Serial Number", "Player"];
+
+        // Get current date and time
+        var currentDate = new Date().toLocaleDateString();
+        var currentTime = new Date().toLocaleTimeString();
+        if(seriesType=='Bi'){
+            var heading = document.createElement("h2");
+            heading.textContent = "Team for " + seriesType + " Series (" + currentDate + " " + currentTime + "):";
+            body.appendChild(heading);
+            var team1 = document.createElement("h4");
+            team1.textContent = "Team A :";
+            body.appendChild(team1);
+            var table1 = document.createElement("table");
+            // Create the table header
+            var headerRow1 = table1.insertRow();
+            for (var i = 0; i < headers.length; i++) {
+                var headerCell = headerRow1.insertCell(i);
+                headerCell.textContent = headers[i];
+            }// Create table rows and populate data
+            for (var i = 0; i < players.length; i+=2) {
+                var row = table1.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = i+ 1;
+                cell2.textContent = players[i];
+            }
+            // Append the table to the body
+            document.body.appendChild(table1);
+            var team2 = document.createElement("h4");
+            team2.textContent = "Team B :";
+            body.appendChild(team2);
+            var table2 = document.createElement("table");
+            // Create the table header
+            var headerRow2 = table2.insertRow();
+            for (var i = 0; i < headers.length; i++) {
+                var headerCell = headerRow2.insertCell(i);
+                headerCell.textContent = headers[i];
+            }// Create table rows and populate data
+            for (var i = 1; i < players.length; i+=2) {
+                var row = table2.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = i+ 1;
+                cell2.textContent = players[i];
+            }
+            // Append the table to the body
+            document.body.appendChild(table2);
+        }
+        else{
+            var heading = document.createElement("h2");
+            heading.textContent = "Team for Tri Series (" + currentDate + " " + currentTime + "):";
+            body.appendChild(heading);
+            var team1 = document.createElement("h4");
+            team1.textContent = "Team A :";
+            body.appendChild(team1);
+            var table1 = document.createElement("table");
+            // Create the table header
+            var headerRow1 = table1.insertRow();
+            for (var i = 0; i < headers.length; i++) {
+                var headerCell = headerRow1.insertCell(i);
+                headerCell.textContent = headers[i];
+            }// Create table rows and populate data
+            for (var i = 0; i < players.length; i+=3) {
+                var row = table1.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = i+ 1;
+                cell2.textContent = players[i];
+            }
+            // Append the table to the body
+            document.body.appendChild(table1);
+            var team2 = document.createElement("h4");
+            team2.textContent = "Team B :";
+            body.appendChild(team2);
+            var table2 = document.createElement("table");
+            // Create the table header
+            var headerRow2 = table2.insertRow();
+            for (var i = 0; i < headers.length; i++) {
+                var headerCell = headerRow2.insertCell(i);
+                headerCell.textContent = headers[i];
+            }// Create table rows and populate data
+            for (var i = 1; i < players.length; i+=3) {
+                var row = table2.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = i+ 1;
+                cell2.textContent = players[i];
+            }
+            // Append the table to the body
+            document.body.appendChild(table2);
+            var team3 = document.createElement("h4");
+            team3.textContent = "Team C :";
+            body.appendChild(team3);
+            var table3 = document.createElement("table");
+            // Create the table header
+            var headerRow3 = table3.insertRow();
+            for (var i = 0; i < headers.length; i++) {
+                var headerCell = headerRow3.insertCell(i);
+                headerCell.textContent = headers[i];
+            }// Create table rows and populate data
+            for (var i = 2; i < players.length; i+=3) {
+                var row = table3.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.textContent = i+ 1;
+                cell2.textContent = players[i];
+            }
+            // Append the table to the body
+            document.body.appendChild(table3);
+        }
+        html2canvas(document.body).then(function(canvas) {
+            canvas.toBlob(function(blob) {
+                saveAs(blob, 'wacky_team.png');
+            });
+        });
+        document.getElementById('seriesButtons').style.display = 'none';
+        document.getElementById('addPlayer').style.display = 'none';
+        document.getElementById('generateTeam').style.display = 'none';
+        document.getElementById('add').style.display = 'none';
+        document.getElementById('generatePNG').style.display = 'inline-block';
+    }
+
+    function shuffleArray(array) {
+        // Fisher-Yates shuffle algorithm
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    // function generatePNG() {
+    //     html2canvas(document.body).then(function(canvas) {
+    //         canvas.toBlob(function(blob) {
+    //             saveAs(blob, 'wacky_team.png');
+    //         });
+    //     });
+    // }
+
+    function editplayername(playerName){
+        console.log(players);
+    }
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+    .then((registration) => {
+      console.log('Service Worker registered with scope:', registration.scope);
+    })
+    .catch((error) => {
+      console.log('Service Worker registration failed:', error);
+    });
+  }
+</script>
+
+</body>
+</html>

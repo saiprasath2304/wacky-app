@@ -1,7 +1,7 @@
 {
     "name": "Wacky Team Generator",
     "short_name": "Wacky Teams",
-    "start_url": "./wacky.html",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4CAF50",

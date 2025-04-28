@@ -141,53 +141,6 @@
 <div id="playerForm" style="display: none;">
     <label for="playerList">Select Player(s):</label>
     <select id="playerList" multiple>
-	<option value="Abdul">Abdul</option>
-	<option value="Amin">Amin</option>
-	<option value="Anand">Anand</option>
-	<option value="Andu Senthil">Andu Senthil</option>
-	<option value="Arun">Arun</option>
-	<option value="Ashok">Ashok</option>
-    <option value="Babu.R">Babu.R</option>
-    <option value="Babu.V">Babu.V</option>
-    <option value="Balaji">Balaji</option>
-    <option value="Chandru">Chandru</option>
-    <option value="Egha">Egha</option>
-    <option value="Ganesh">Ganesh</option>
-    <option value="Guru">Guru</option>
-    <option value="Hari">Hari</option>
-    <option value="Jebin">Jebin</option>
-    <option value="Kannan">Kannan</option>
-    <option value="Karthikeyan">Karthikeyan</option>
-    <option value="Karthi Lara">Karthi Lara</option>
-    <option value="Kathir">kathir</option>
-	<option value="Naveen">Naveen</option>
-    <option value="Mani">Mani</option>
-    <option value="Mohan">Mohan</option>
-    <option value="Naveen Jr.">Naveen Jr.</option>
-    <option value="Mahesh">Mahesh</option>
-    <option value="Prabha">Prabha</option>
-    <option value="Prakash">Prakash</option>
-    <option value="Prasanna">Prasanna</option>
-    <option value="Praveen">Praveen</option>
-    <option value="Raghul">Raghul</option>
-    <option value="Raja">Raja</option>
-    <option value="Rajasekhar">Rajasekhar</option>
-	<option value="Rajesh">Rajesh</option>
-    <option value="Rajavarman">Rajavarman</option>
-    <option value="Rithik">Rithik</option>
-    <option value="Ramgopal">Ramgopal</option>
-    <option value="Ramachandran">Ramachandran</option>
-    <option value="Saikannan">Saikannan</option>
-    <option value="Saiprasath">Saiprasath</option>
-    <option value="Sanjay">Sanjay</option>
-    <option value="Saravanan">Saravanan</option>
-    <option value="Sathyamurthi">Sathyamurthi</option>
-    <option value="Selvam">Selvam</option>
-    <option value="Selvaraj">Selvaraj</option>
-    <option value="Senthil">Senthil</option>
-    <option value="Sureshkumar">Sureshkumar</option>
-	<option value="Tamil">Tamil</option>
-    <option value="Thyagu">Thyagu</option>
         <!-- Add more players here -->
     </select>
     <button onclick="submitPlayer()">Submit</button>
@@ -214,6 +167,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script>
+    const url = 'https://saiprasath2304.github.io/wacky-app/wacky.txt';
+
+    async function fetchAndPopulatePlayers() {
+        try {
+            const response = await fetch(url);
+            const text = await response.text(); // ← fetch as plain text
+            const players = text.split('\n').map(name => name.trim()).filter(name => name); // split by new lines and clean up
+
+            const playerList = document.getElementById('playerList');
+
+            // Clear any existing options
+            playerList.innerHTML = '';
+
+            // Add each player as an option
+            players.forEach(player => {
+                const option = document.createElement('option');
+                option.value = player;
+                option.textContent = player;
+                playerList.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Failed to fetch player list:', error);
+        }
+    }
+
+    // Call the function to fetch and populate
+    fetchAndPopulatePlayers();
+
     let serialNumber = 1;
     let players = [];
 

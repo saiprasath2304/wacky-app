@@ -129,9 +129,72 @@
             background-color: #333;
         }
 	
-	#generatePNG {
+        #generatePNG {
             display: none;
-	}
+        }
+
+        #helpBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-yes {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-no {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 8px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -158,6 +221,28 @@
 <div id="seriesButtons" style="display: none;">
     <button onclick="generateTeam('Tri')">Tri Series</button>
     <button onclick="generateTeam('Bi')">Bi Series</button>
+</div>
+
+<button id="helpBtn" onclick="openHelpModal()">?</button>
+
+<div class="modal" id="helpModal">
+  <div id="yesNo" class="modal-content">
+    <p>Do you want to fill the form?</p>
+    <button class="btn btn-yes" onclick="showForm()">Yes</button>
+    <button class="btn btn-no" onclick="closeModal()">No</button>
+  </div>
+
+  <div id="formModal" class="modal-content" hidden>
+    <h3>Add Player</h3>
+    <form action="https://formspree.io/f/xovdjree" method="POST" onsubmit="closeFormModal()">
+      <label>
+        Full Name:<br>
+        <input type="text" name="name" required>
+      </label><br>
+      <button type="submit" class="btn btn-yes">Send</button>
+      <button type="button" class="btn btn-no" onclick="closeFormModal()">Cancel</button>
+    </form>
+  </div>
 </div>
 
 <button onclick="generatePNG()" id="generatePNG">Generate PNG</button>
@@ -420,6 +505,36 @@ function showUpdateNotification() {
     }
   }
 }
+
+function openHelpModal() {
+    document.getElementById("helpModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("helpModal").style.display = "none";
+  }
+
+  function closeYesNo() {
+    document.getElementById("yesNo").style.display = "none";
+  }
+
+  function showForm() {
+    closeYesNo();
+    document.getElementById("formModal").removeAttribute('hidden');
+  }
+
+  function closeFormModal() {
+    closeModal();
+    document.getElementById("formModal").setAttribute('hidden', true);
+  }
+
+  // Optional: close when clicking outside the modal content
+  window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+      closeModal();
+      closeFormModal();
+    }
+  }
 
 </script>
 

@@ -227,7 +227,7 @@
 
 <div class="modal" id="helpModal">
   <div id="yesNo" class="modal-content">
-    <p>Do you want to fill the form?</p>
+    <p>Want to add new player?</p>
     <button class="btn btn-yes" onclick="showForm()">Yes</button>
     <button class="btn btn-no" onclick="closeModal()">No</button>
   </div>
@@ -239,6 +239,7 @@
         Full Name:<br>
         <input type="text" name="name" required>
       </label><br>
+      <input type="hidden" name="_next" value="/thank-you.html">
       <button type="submit" class="btn btn-yes">Send</button>
       <button type="button" class="btn btn-no" onclick="closeFormModal()">Cancel</button>
     </form>
